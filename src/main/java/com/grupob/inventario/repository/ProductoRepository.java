@@ -1,12 +1,10 @@
 package com.grupob.inventario.repository;
 
 import com.grupob.inventario.domain.model.Producto;
-
 import java.util.List;
 import java.util.Optional;
 
 public interface ProductoRepository {
-
     void guardar(Producto producto);
 
     Optional<Producto> buscarPorCodigo(String codigo);
@@ -22,4 +20,9 @@ public interface ProductoRepository {
     boolean existeCodigo(String codigo);
 
     void eliminar(String codigo);
+    List<Producto> buscarCombinada(
+        String codigo,
+        String nombre,
+        String categoria
+    );
 }

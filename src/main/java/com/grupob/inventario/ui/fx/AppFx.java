@@ -18,9 +18,17 @@ public class AppFx extends Application {
     public static void setContexto(ContextoAplicacion ctx) {
         contexto = ctx;
     }
+    @Override
+public void init() throws Exception {
+    System.out.println("→ AppFx.init() llamado");
+}
+
+
 
     @Override
     public void start(Stage stage) {
+        System.out.println("→ AppFx.start() llamado");
+
         NavegacionFx.init(stage, contexto);
 
         stage.setMinWidth(900);

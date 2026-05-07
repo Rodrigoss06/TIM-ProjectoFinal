@@ -27,7 +27,7 @@
         <VBox styleClass="sidebar" spacing="4" minWidth="190" prefWidth="190">
             <padding><Insets top="16" right="8" bottom="16" left="8"/></padding>
             <Button text="📦  Productos" maxWidth="Infinity" onAction="#verProductos" styleClass="menu-btn"/>
-            <Button text="📊  Stock"     maxWidth="Infinity" onAction="#verStock"     styleClass="menu-btn"/>
+            <Button text="📊  Movimientos"     maxWidth="Infinity" onAction="#verMovimientos"     styleClass="menu-btn"/>
             <Button fx:id="usuariosBtn"  text="👥  Usuarios"  maxWidth="Infinity" onAction="#verUsuarios"  styleClass="menu-btn"/>
             <Button fx:id="auditoriaBtn" text="🔍  Auditoría" maxWidth="Infinity" onAction="#verAuditoria" styleClass="menu-btn"/>
         </VBox>

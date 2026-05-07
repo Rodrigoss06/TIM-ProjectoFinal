@@ -3,7 +3,6 @@ package com.grupob.inventario.repository.jpa;
 import com.grupob.inventario.domain.model.Producto;
 import com.grupob.inventario.persistence.TransactionManager;
 import com.grupob.inventario.repository.ProductoRepository;
-
 import jakarta.persistence.EntityManager;
 import java.util.Comparator;
 import java.util.List;
@@ -28,21 +27,27 @@ public class ProductoRepositoryJpa implements ProductoRepository {
         Objects.requireNonNull(codigo);
         EntityManager em = TransactionManager.actual();
         // Los códigos se almacenan en mayúsculas; la clave ya está normalizada
-        return Optional.ofNullable(em.find(Producto.class, codigo.trim().toUpperCase()));
+        return Optional.ofNullable(
+            em.find(Producto.class, codigo.trim().toUpperCase())
+        );
     }
 
     @Override
     public List<Producto> buscarPorNombre(String parcial) {
         EntityManager em = TransactionManager.actual();
-        String patron = "%" + (parcial == null ? "" : parcial.trim().toLowerCase()) + "%";
+        String patron =
+            "%" + (parcial == null ? "" : parcial.trim().toLowerCase()) + "%";
         return List.copyOf(
-            em.createQuery(
-                "SELECT p FROM Producto p " +
-                "WHERE p.activo = true AND LOWER(p.nombre) LIKE :patron " +
-                "ORDER BY LOWER(p.nombre)",
-                Producto.class)
-              .setParameter("patron", patron)
-              .getResultList());
+            em
+                .createQuery(
+                    "SELECT p FROM Producto p " +
+                        "WHERE p.activo = true AND LOWER(p.nombre) LIKE :patron " +
+                        "ORDER BY LOWER(p.nombre)",
+                    Producto.class
+                )
+                .setParameter("patron", patron)
+                .getResultList()
+        );
     }
 
     @Override
@@ -50,42 +55,53 @@ public class ProductoRepositoryJpa implements ProductoRepository {
         Objects.requireNonNull(categoria);
         EntityManager em = TransactionManager.actual();
         return List.copyOf(
-            em.createQuery(
-                "SELECT p FROM Producto p " +
-                "WHERE p.activo = true AND LOWER(p.categoria) = LOWER(:categoria) " +
-                "ORDER BY LOWER(p.nombre)",
-                Producto.class)
-              .setParameter("categoria", categoria)
-              .getResultList());
+            em
+                .createQuery(
+                    "SELECT p FROM Producto p " +
+                        "WHERE p.activo = true AND LOWER(p.categoria) = LOWER(:categoria) " +
+                        "ORDER BY LOWER(p.nombre)",
+                    Producto.class
+                )
+                .setParameter("categoria", categoria)
+                .getResultList()
+        );
     }
 
     @Override
     public List<Producto> listarTodos() {
         EntityManager em = TransactionManager.actual();
         return List.copyOf(
-            em.createQuery(
-                "SELECT p FROM Producto p ORDER BY LOWER(p.nombre)",
-                Producto.class)
-              .getResultList());
+            em
+                .createQuery(
+                    "SELECT p FROM Producto p ORDER BY LOWER(p.nombre)",
+                    Producto.class
+                )
+                .getResultList()
+        );
     }
 
     @Override
     public List<Producto> listarActivos() {
         EntityManager em = TransactionManager.actual();
         return List.copyOf(
-            em.createQuery(
-                "SELECT p FROM Producto p WHERE p.activo = true ORDER BY LOWER(p.nombre)",
-                Producto.class)
-              .getResultList());
+            em
+                .createQuery(
+                    "SELECT p FROM Producto p WHERE p.activo = true ORDER BY LOWER(p.nombre)",
+                    Producto.class
+                )
+                .getResultList()
+        );
     }
 
     @Override
     public boolean existeCodigo(String codigo) {
         Objects.requireNonNull(codigo);
         EntityManager em = TransactionManager.actual();
-        Long count = em.createQuery(
+        Long count = em
+            .createQuery(
                 "SELECT COUNT(p) FROM Producto p WHERE UPPER(p.codigo) = :codigo",
-                Long.class)
+                Long.class
+            )
             .setParameter("codigo", codigo.trim().toUpperCase())
             .getSingleResult();
         return count > 0;
@@ -98,5 +114,40 @@ public class ProductoRepositoryJpa implements ProductoRepository {
         Producto p = em.find(Producto.class, codigo.trim().toUpperCase());
         if (p != null) p.eliminar();
         // Como entidad gestionada, el cambio se persiste en el commit
+    }
+
+    @Override
+    public List<Producto> buscarCombinada(
+        String codigo,
+        String nombre,
+        String categoria
+    ) {
+        EntityManager em = TransactionManager.actual();
+        StringBuilder jpql = new StringBuilder(
+            "SELECT p FROM Producto p WHERE p.activo = true"
+        );
+
+        boolean tieneCodigo = codigo != null && !codigo.isBlank();
+        boolean tieneNombre = nombre != null && !nombre.isBlank();
+        boolean tieneCategoria = categoria != null && !categoria.isBlank();
+
+        if (tieneCodigo) jpql.append(" AND UPPER(p.codigo) LIKE :codigo");
+        if (tieneNombre) jpql.append(" AND LOWER(p.nombre) LIKE :nombre");
+        if (tieneCategoria) jpql.append(
+            " AND LOWER(p.categoria) = LOWER(:categoria)"
+        );
+        jpql.append(" ORDER BY LOWER(p.nombre)");
+
+        var query = em.createQuery(jpql.toString(), Producto.class);
+        if (tieneCodigo) query.setParameter(
+            "codigo",
+            "%" + codigo.trim().toUpperCase() + "%"
+        );
+        if (tieneNombre) query.setParameter(
+            "nombre",
+            "%" + nombre.trim().toLowerCase() + "%"
+        );
+        if (tieneCategoria) query.setParameter("categoria", categoria.trim());
+        return List.copyOf(query.getResultList());
     }
 }

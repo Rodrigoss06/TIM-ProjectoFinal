@@ -53,8 +53,7 @@ public class MainController {
     public void verProductos(ActionEvent e) { cargarEnContenido("productos"); }
 
     @FXML
-    public void verStock(ActionEvent e) { cargarEnContenido("stock"); }
-
+    public void verMovimientos(ActionEvent e) { cargarEnContenido("movimientos"); }
     @FXML
     public void verUsuarios(ActionEvent e) { cargarEnContenido("usuarios"); }
 

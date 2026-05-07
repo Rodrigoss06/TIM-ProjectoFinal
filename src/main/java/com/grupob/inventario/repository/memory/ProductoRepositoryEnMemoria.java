@@ -2,7 +2,6 @@ package com.grupob.inventario.repository.memory;
 
 import com.grupob.inventario.domain.model.Producto;
 import com.grupob.inventario.repository.ProductoRepository;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -41,36 +40,52 @@ public class ProductoRepositoryEnMemoria implements ProductoRepository {
     @Override
     public List<Producto> buscarPorNombre(String parcial) {
         String termino = parcial == null ? "" : parcial.trim().toLowerCase();
-        return List.copyOf(mapa.values().stream()
+        return List.copyOf(
+            mapa
+                .values()
+                .stream()
                 .filter(Producto::isActivo)
                 .filter(p -> p.getNombre().toLowerCase().contains(termino))
                 .sorted(Comparator.comparing(p -> p.getNombre().toLowerCase()))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList())
+        );
     }
 
     @Override
     public List<Producto> buscarPorCategoria(String categoria) {
         Objects.requireNonNull(categoria);
-        return List.copyOf(mapa.values().stream()
+        return List.copyOf(
+            mapa
+                .values()
+                .stream()
                 .filter(Producto::isActivo)
                 .filter(p -> p.getCategoria().equalsIgnoreCase(categoria))
                 .sorted(Comparator.comparing(p -> p.getNombre().toLowerCase()))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList())
+        );
     }
 
     @Override
     public List<Producto> listarTodos() {
-        return List.copyOf(mapa.values().stream()
+        return List.copyOf(
+            mapa
+                .values()
+                .stream()
                 .sorted(Comparator.comparing(p -> p.getNombre().toLowerCase()))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList())
+        );
     }
 
     @Override
     public List<Producto> listarActivos() {
-        return List.copyOf(mapa.values().stream()
+        return List.copyOf(
+            mapa
+                .values()
+                .stream()
                 .filter(Producto::isActivo)
                 .sorted(Comparator.comparing(p -> p.getNombre().toLowerCase()))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList())
+        );
     }
 
     @Override
@@ -81,5 +96,44 @@ public class ProductoRepositoryEnMemoria implements ProductoRepository {
     @Override
     public void eliminar(String codigo) {
         buscarPorCodigo(codigo).ifPresent(Producto::eliminar);
+    }
+
+    @Override
+    public List<Producto> buscarCombinada(
+        String codigo,
+        String nombre,
+        String categoria
+    ) {
+        String codFiltro = (codigo != null && !codigo.isBlank())
+            ? codigo.trim().toUpperCase()
+            : null;
+        String nomFiltro = (nombre != null && !nombre.isBlank())
+            ? nombre.trim().toLowerCase()
+            : null;
+        String catFiltro = (categoria != null && !categoria.isBlank())
+            ? categoria.trim().toLowerCase()
+            : null;
+
+        return mapa
+            .values()
+            .stream()
+            .filter(Producto::isActivo)
+            .filter(
+                p ->
+                    codFiltro == null ||
+                    p.getCodigo().toUpperCase().contains(codFiltro)
+            )
+            .filter(
+                p ->
+                    nomFiltro == null ||
+                    p.getNombre().toLowerCase().contains(nomFiltro)
+            )
+            .filter(
+                p ->
+                    catFiltro == null ||
+                    p.getCategoria().toLowerCase().equals(catFiltro)
+            )
+            .sorted(Comparator.comparing(p -> p.getNombre().toLowerCase()))
+            .toList();
     }
 }

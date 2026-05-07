@@ -1,11 +1,12 @@
 package com.grupob.inventario.repository.memory;
 
+import com.grupob.inventario.domain.enums.TipoMovimiento;
 import com.grupob.inventario.domain.model.Movimiento;
 import com.grupob.inventario.repository.MovimientoRepository;
-
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -24,19 +25,54 @@ public class MovimientoRepositoryEnMemoria implements MovimientoRepository {
     @Override
     public List<Movimiento> historialDe(String codigoProducto) {
         Objects.requireNonNull(codigoProducto);
-        return List.copyOf(movimientos.stream()
-                .filter(m -> m.codigoProducto().equalsIgnoreCase(codigoProducto))
-                .collect(Collectors.toList()));
+        return List.copyOf(
+            movimientos
+                .stream()
+                .filter(m ->
+                    m.codigoProducto().equalsIgnoreCase(codigoProducto)
+                )
+                .collect(Collectors.toList())
+        );
     }
 
     @Override
-    public boolean tieneMovimientosRecientes(String codigoProducto, Duration ventana, Clock clock) {
+    public boolean tieneMovimientosRecientes(
+        String codigoProducto,
+        Duration ventana,
+        Clock clock
+    ) {
         Objects.requireNonNull(codigoProducto);
         Objects.requireNonNull(ventana);
         Objects.requireNonNull(clock);
         Instant limite = Instant.now(clock).minus(ventana);
-        return movimientos.stream()
-                .filter(m -> m.codigoProducto().equalsIgnoreCase(codigoProducto))
-                .anyMatch(m -> m.fecha().isAfter(limite));
+        return movimientos
+            .stream()
+            .filter(m -> m.codigoProducto().equalsIgnoreCase(codigoProducto))
+            .anyMatch(m -> m.fecha().isAfter(limite));
+    }
+
+    @Override
+    public List<Movimiento> consultar(
+        String codigoProducto,
+        TipoMovimiento tipo,
+        Instant desde,
+        Instant hasta
+    ) {
+        String codigoFiltro = (codigoProducto != null &&
+            !codigoProducto.isBlank())
+            ? codigoProducto.trim()
+            : null;
+        return movimientos
+            .stream()
+            .filter(
+                m ->
+                    codigoFiltro == null ||
+                    codigoFiltro.equalsIgnoreCase(m.getCodigoProducto())
+            )
+            .filter(m -> tipo == null || tipo == m.getTipo())
+            .filter(m -> desde == null || !m.getFecha().isBefore(desde))
+            .filter(m -> hasta == null || m.getFecha().isBefore(hasta))
+            .sorted(Comparator.comparing(Movimiento::getFecha).reversed())
+            .toList();
     }
 }

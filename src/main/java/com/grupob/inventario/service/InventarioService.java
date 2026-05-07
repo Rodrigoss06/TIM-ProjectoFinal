@@ -72,4 +72,9 @@ public class InventarioService {
         Objects.requireNonNull(codigo, "codigo no puede ser null");
         return txManager.soloLectura(() -> movimientoRepo.historialDe(codigo));
     }
+    public List<Movimiento> consultarMovimientos(String codigoProducto, TipoMovimiento tipo,
+                                              Instant desde, Instant hasta, Rol rolUsuario) {
+    permisoChecker.requierePermiso(rolUsuario, PermisoChecker.Accion.ACTUALIZAR_STOCK);
+    return txManager.soloLectura(() -> movimientoRepo.consultar(codigoProducto, tipo, desde, hasta));
+}
 }

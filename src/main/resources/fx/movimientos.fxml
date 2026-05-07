@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.grupob.inventario.ui.fx.controller.MovimientosController"
+      spacing="12" >
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16"/>
+    </padding>
+
+    <Label text="Historial de movimientos" styleClass="titulo-pantalla"/>
+
+    <HBox spacing="8" alignment="CENTER_LEFT">
+        <TextField   fx:id="codigoFiltro" promptText="Código de producto" prefWidth="180"/>
+        <ComboBox    fx:id="tipoFiltro"   prefWidth="120"/>
+        <DatePicker  fx:id="desdeFiltro"  promptText="Desde" prefWidth="140"/>
+        <DatePicker  fx:id="hastaFiltro"  promptText="Hasta" prefWidth="140"/>
+        <Button      fx:id="filtrarBtn"   text="Filtrar"   onAction="#filtrar"/>
+        <Button      fx:id="limpiarBtn"   text="Limpiar"   onAction="#limpiar"/>
+    </HBox>
+
+    <Label fx:id="mensajeVacio" text="No hay movimientos con los filtros aplicados."
+           visible="false" managed="false"/>
+
+    <TableView fx:id="tablaMovimientos" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colFecha"         text="Fecha"          prefWidth="170"/>
+            <TableColumn fx:id="colCodigoProd"    text="Producto"       prefWidth="130"/>
+            <TableColumn fx:id="colTipo"          text="Tipo"           prefWidth="100"/>
+            <TableColumn fx:id="colCantidad"      text="Cantidad"       prefWidth="100"/>
+            <TableColumn fx:id="colStockAnterior" text="Stock anterior" prefWidth="120"/>
+            <TableColumn fx:id="colStockNuevo"    text="Stock nuevo"    prefWidth="110"/>
+        </columns>
+    </TableView>
+
+    <Label fx:id="totalLabel" text="Total: 0 movimientos"/>
+</VBox>

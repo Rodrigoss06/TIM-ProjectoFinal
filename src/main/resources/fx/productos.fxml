@@ -12,6 +12,8 @@
       fx:controller="com.grupob.inventario.ui.fx.controller.ProductosController"
       spacing="10" style="-fx-padding: 0;">
   <HBox spacing="8" alignment="CENTER_LEFT">
+    <TextField   fx:id="filtroCodigo"   promptText="Código"     prefWidth="120"/>
+    <TextField   fx:id="filtroNombre"   promptText="Nombre"     prefWidth="160"/>
     <TextField fx:id="filtroCategoria" promptText="Categoria" prefWidth="130"/>
     <TextField fx:id="filtroPrecioMin" promptText="Precio min" prefWidth="100"/>
     <TextField fx:id="filtroPrecioMax" promptText="Precio max" prefWidth="100"/>

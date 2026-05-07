@@ -14,6 +14,7 @@ public final class DataSourceFactory {
      * Crea y valida un HikariDataSource desde la Configuracion.
      * Si la conexión de prueba falla, cierra el pool y lanza PersistenciaException.
      */
+
     public static HikariDataSource crear(Configuracion cfg) {
         HikariConfig config = new HikariConfig();
         config.setPoolName("InventarioPool");

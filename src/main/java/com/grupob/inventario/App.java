@@ -108,11 +108,16 @@ public class App {
         }, "shutdown-hook"));
 
         // ── 8. Arrancar UI ───────────────────────────────────────────────
-        if (!modoFx) {
-            new ConsolaPrincipal(contexto).iniciar();
-        } else {
-            AppFx.setContexto(contexto);
-            Application.launch(AppFx.class, args);
-        }
+System.out.println("→ modoFx = " + modoFx + ", args = " + Arrays.toString(args));
+if (!modoFx) {
+    System.out.println("→ arrancando CLI");
+    new ConsolaPrincipal(contexto).iniciar();
+} else {
+    System.out.println("→ inyectando contexto en AppFx");
+    AppFx.setContexto(contexto);
+    System.out.println("→ llamando Application.launch");
+    Application.launch(AppFx.class, args);
+    System.out.println("→ Application.launch retornó (esto solo se ve al cerrar la ventana)");
+}
     }
 }
