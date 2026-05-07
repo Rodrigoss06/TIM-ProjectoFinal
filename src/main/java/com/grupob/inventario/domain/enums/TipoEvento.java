@@ -1,0 +1,15 @@
+package com.grupob.inventario.domain.enums;
+
+public enum TipoEvento {
+    LOGIN_EXITOSO,
+    LOGIN_FALLIDO,
+    CUENTA_BLOQUEADA,
+    LOGOUT,
+    CREAR_PRODUCTO,
+    ACTUALIZAR_PRODUCTO,
+    ACTUALIZAR_STOCK,
+    ELIMINAR_PRODUCTO,
+    CREAR_USUARIO,
+    CAMBIAR_ROL,
+    DESACTIVAR_USUARIO
+}
