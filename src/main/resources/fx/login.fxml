@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.grupob.inventario.ui.fx.controller.LoginController"
+      alignment="CENTER" spacing="14"
+      style="-fx-background-color: #f1f5f9;">
+
+    <padding><Insets top="80" right="140" bottom="80" left="140"/></padding>
+
+    <Label text="Sistema de Inventario" styleClass="titulo"/>
+    <Label text="Grupo B — UCSM" styleClass="subtitulo"/>
+
+    <Region prefHeight="20"/>
+
+    <TextField  fx:id="usuario"    promptText="Usuario"    maxWidth="320" styleClass="campo-login"/>
+    <PasswordField fx:id="contrasena" promptText="Contraseña" maxWidth="320" styleClass="campo-login"/>
+
+    <Label fx:id="error" styleClass="error-label" maxWidth="320"
+           wrapText="true" visible="false" managed="false"/>
+
+    <Button fx:id="entrar" text="Entrar" defaultButton="true" maxWidth="320"
+            onAction="#entrar" styleClass="boton-principal"/>
+
+</VBox>

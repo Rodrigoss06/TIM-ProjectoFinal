@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.grupob.inventario.ui.fx.controller.ProductosController"
+      spacing="10" style="-fx-padding: 0;">
+  <HBox spacing="8" alignment="CENTER_LEFT">
+    <TextField fx:id="filtroCategoria" promptText="Categoria" prefWidth="130"/>
+    <TextField fx:id="filtroPrecioMin" promptText="Precio min" prefWidth="100"/>
+    <TextField fx:id="filtroPrecioMax" promptText="Precio max" prefWidth="100"/>
+    <ComboBox  fx:id="filtroEstado" prefWidth="120"/>
+    <Button text="Filtrar"  onAction="#filtrar"  styleClass="boton-accion"/>
+    <Button text="Limpiar"  onAction="#limpiar"  styleClass="boton-secundario"/>
+  </HBox>
+  <TableView fx:id="tablaProductos" VBox.vgrow="ALWAYS" prefHeight="360">
+    <columns>
+      <TableColumn fx:id="colCodigo"    text="Codigo"    prefWidth="90"/>
+      <TableColumn fx:id="colNombre"    text="Nombre"    prefWidth="200"/>
+      <TableColumn fx:id="colCategoria" text="Categoria" prefWidth="110"/>
+      <TableColumn fx:id="colPrecio"    text="Precio"    prefWidth="90"/>
+      <TableColumn fx:id="colStock"     text="Stock"     prefWidth="70"/>
+      <TableColumn fx:id="colEstado"    text="Estado"    prefWidth="110"/>
+    </columns>
+    <placeholder><Label text="Sin productos. Use Nuevo para agregar."/></placeholder>
+  </TableView>
+  <HBox spacing="8" alignment="CENTER_LEFT">
+    <Button text="Nuevo"     onAction="#nuevo"    styleClass="boton-principal"/>
+    <Button text="Editar"    onAction="#editar"   styleClass="boton-accion"/>
+    <Button text="Stock"     onAction="#stock"    styleClass="boton-accion"/>
+    <Button fx:id="btnEliminar" text="Eliminar"  onAction="#eliminar" styleClass="boton-peligro"/>
+    <Button text="Refrescar" onAction="#cargar"   styleClass="boton-secundario"/>
+    <Region HBox.hgrow="ALWAYS"/>
+    <Label fx:id="total" style="-fx-text-fill: #64748b;"/>
+  </HBox>
+</VBox>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.grupob.inventario.ui.fx.controller.AuditoriaController"
+      spacing="10" style="-fx-padding: 0;">
+  <Label text="Log de Auditoría" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+  <HBox spacing="8" alignment="CENTER_LEFT">
+    <DatePicker fx:id="filtroDesde"    promptText="Desde"   prefWidth="145"/>
+    <DatePicker fx:id="filtroHasta"    promptText="Hasta"   prefWidth="145"/>
+    <TextField  fx:id="filtroUsername" promptText="Usuario" prefWidth="110"/>
+    <ComboBox   fx:id="filtroTipo"     prefWidth="190"/>
+    <Button text="Filtrar" onAction="#filtrar" styleClass="boton-accion"/>
+    <Button text="Limpiar" onAction="#limpiar" styleClass="boton-secundario"/>
+  </HBox>
+  <Label fx:id="mensajeSinResultados" styleClass="error-label"
+         visible="false" managed="false" wrapText="true"/>
+  <TableView fx:id="tablaAuditoria" VBox.vgrow="ALWAYS" prefHeight="340">
+    <columns>
+      <TableColumn fx:id="colFecha"   text="Fecha"   prefWidth="145"/>
+      <TableColumn fx:id="colUsuario" text="Usuario" prefWidth="110"/>
+      <TableColumn fx:id="colTipo"    text="Tipo"    prefWidth="175"/>
+      <TableColumn fx:id="colEntidad" text="Entidad" prefWidth="110"/>
+      <TableColumn fx:id="colDetalle" text="Detalle" prefWidth="210"/>
+    </columns>
+    <placeholder><Label text="Sin registros de auditoría."/></placeholder>
+  </TableView>
+  <HBox spacing="12" alignment="CENTER">
+    <Button fx:id="btnAnterior"  text="Anterior"  onAction="#anterior"  styleClass="boton-secundario"/>
+    <Label  fx:id="paginaLabel"  text="Pagina 1"  style="-fx-font-weight: bold;"/>
+    <Button fx:id="btnSiguiente" text="Siguiente" onAction="#siguiente" styleClass="boton-secundario"/>
+  </HBox>
+</VBox>

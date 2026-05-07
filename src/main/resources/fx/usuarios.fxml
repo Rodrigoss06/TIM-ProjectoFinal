@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.grupob.inventario.ui.fx.controller.UsuariosController"
+      spacing="10" style="-fx-padding: 0;">
+  <Label text="Gestión de Usuarios" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+  <TableView fx:id="tablaUsuarios" VBox.vgrow="ALWAYS" prefHeight="360">
+    <columns>
+      <TableColumn fx:id="colUsername" text="Username" prefWidth="160"/>
+      <TableColumn fx:id="colRol"      text="Rol"      prefWidth="200"/>
+      <TableColumn fx:id="colActivo"   text="Activo"   prefWidth="80"/>
+    </columns>
+    <placeholder><Label text="No hay usuarios registrados."/></placeholder>
+  </TableView>
+  <HBox spacing="8" alignment="CENTER_LEFT">
+    <Button text="Nuevo"       onAction="#nuevo"       styleClass="boton-principal"/>
+    <Button text="Cambiar rol" onAction="#cambiarRol"  styleClass="boton-accion"/>
+    <Button text="Desactivar"  onAction="#desactivar"  styleClass="boton-peligro"/>
+    <Button text="Refrescar"   onAction="#cargar"      styleClass="boton-secundario"/>
+    <Region HBox.hgrow="ALWAYS"/>
+    <Label fx:id="totalLabel" style="-fx-text-fill: #64748b;"/>
+  </HBox>
+</VBox>

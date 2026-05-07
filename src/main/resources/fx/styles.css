@@ -1,0 +1,125 @@
+/* ── Tipografía global ─────────────────────────────────────────────── */
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* ── Login ─────────────────────────────────────────────────────────── */
+.titulo {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.subtitulo {
+    -fx-font-size: 13px;
+    -fx-text-fill: #64748b;
+}
+
+.campo-login {
+    -fx-pref-height: 40px;
+    -fx-background-color: white;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8 12 8 12;
+    -fx-font-size: 13px;
+}
+
+.campo-login:focused {
+    -fx-border-color: #2563eb;
+    -fx-border-width: 2px;
+}
+
+.boton-principal {
+    -fx-pref-height: 42px;
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+    -fx-background-radius: 6px;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.boton-principal:hover   { -fx-background-color: #1d4ed8; }
+.boton-principal:pressed { -fx-background-color: #1e40af; }
+.boton-principal:disabled { -fx-opacity: 0.55; }
+
+.error-label {
+    -fx-text-fill: #dc2626;
+    -fx-font-size: 12px;
+}
+
+/* ── Top bar ────────────────────────────────────────────────────────── */
+.topbar {
+    -fx-background-color: #1e293b;
+    -fx-min-height: 52px;
+    -fx-pref-height: 52px;
+}
+
+.bienvenido {
+    -fx-text-fill: #e2e8f0;
+    -fx-font-size: 14px;
+}
+
+.boton-logout {
+    -fx-background-color: transparent;
+    -fx-text-fill: #94a3b8;
+    -fx-cursor: hand;
+    -fx-border-color: #334155;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 6 12 6 12;
+}
+
+.boton-logout:hover {
+    -fx-text-fill: white;
+    -fx-border-color: #64748b;
+}
+
+/* ── Sidebar ────────────────────────────────────────────────────────── */
+.sidebar {
+    -fx-background-color: #0f172a;
+}
+
+.menu-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #94a3b8;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 9 12 9 12;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+}
+
+.menu-btn:hover {
+    -fx-background-color: #1e293b;
+    -fx-text-fill: white;
+}
+
+/* ── Área de contenido ──────────────────────────────────────────────── */
+.contenido {
+    -fx-background-color: #f8fafc;
+    -fx-padding: 28;
+}
+
+/* ── Botones de acción ─────────────────────────────────────────────── */
+.boton-accion {
+    -fx-background-color: #e2e8f0; -fx-text-fill: #1e293b;
+    -fx-background-radius: 5px; -fx-cursor: hand; -fx-padding: 6 14 6 14;
+}
+.boton-accion:hover { -fx-background-color: #cbd5e1; }
+
+.boton-secundario {
+    -fx-background-color: transparent; -fx-text-fill: #475569;
+    -fx-border-color: #cbd5e1; -fx-border-radius: 5px;
+    -fx-background-radius: 5px; -fx-cursor: hand; -fx-padding: 6 14 6 14;
+}
+.boton-secundario:hover { -fx-border-color: #94a3b8; }
+
+.boton-peligro {
+    -fx-background-color: #fee2e2; -fx-text-fill: #b91c1c;
+    -fx-background-radius: 5px; -fx-cursor: hand; -fx-padding: 6 14 6 14;
+}
+.boton-peligro:hover    { -fx-background-color: #fecaca; }
+.boton-peligro:disabled { -fx-opacity: 0.5; }
